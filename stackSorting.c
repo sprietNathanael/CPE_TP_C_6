@@ -3,11 +3,12 @@
  *
  * @file stackSorting.c
  * @brief      Useful tools to stack sorting a numeric array
- * @author     Nathanaël SPRIET
+ * @author     Nathanaël SPRIET, Caroline ASSAF
  * @date       27/02/2017
  */
 
 #include "stackSorting.h"
+
 
 void createStack(int* array, int arrayLength)
 {

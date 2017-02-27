@@ -3,7 +3,7 @@
  *
  * @file stackSorting.h
  * @brief      Useful tools to stack sorting a numeric array
- * @author     Nathanaël SPRIET
+ * @author     Nathanaël SPRIET, Caroline ASSAF
  * @date       27/02/2017
  */
 

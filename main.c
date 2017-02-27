@@ -3,7 +3,7 @@
  *
  * @file main.c
  * @brief      Implement sorting of simple number array with a stack
- * @author     Nathanaël SPRIET
+ * @author     Nathanaël SPRIET, Caroline ASSAF
  * @date       27/02/2017
  */
 
@@ -29,6 +29,6 @@ int main()
 	int arrayToSort[] = {3 , 5 , 6 , 2 , 8 , 9 , 11 , 7 , 4 , 10 , 12 , 15 , 20 , 1 , 19 , 13 , 17};
 	printArray(arrayToSort, ARRAY_LENGTH);
 	createStack(arrayToSort, ARRAY_LENGTH);
-	destroyStack();
+	destroyStack(	);
 	return 0;
 }
