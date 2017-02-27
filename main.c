@@ -29,5 +29,6 @@ int main()
 	int arrayToSort[] = {3 , 5 , 6 , 2 , 8 , 9 , 11 , 7 , 4 , 10 , 12 , 15 , 20 , 1 , 19 , 13 , 17};
 	printArray(arrayToSort, ARRAY_LENGTH);
 	createStack(arrayToSort, ARRAY_LENGTH);
+	destroyStack();
 	return 0;
 }
