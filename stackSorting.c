@@ -25,7 +25,9 @@ void createStack(int* array, int arrayLength)
 	}
 	log_info("Created Stack :\n");
 	printArray(stackArray, stackArrayLength);
+	printTree(stackArray, stackArrayLength);
 }
+
 
 void checkValueAndReorder_ascending(int indexToCheck)
 {
@@ -83,6 +85,7 @@ void destroyStack()
 		checkValueAndReorder_descending(0);
 	}
 	printArray(orderedArray, orderedArrayLength);
+	printTree(orderedArray,orderedArrayLength);
 }
 
 void checkValueAndReorder_descending(int indexToCheck)
@@ -163,4 +166,125 @@ void printArray(int* arrayToPrint, int arrayLength)
 		log_info(" %d ",arrayToPrint[i]);
 	}
 	log_info("]\n");
+}
+
+void printTree(int* tree, int treeLength)
+{
+	// The tree base width = the nearest higher power of two of the total element number / 2
+	int treeWidth = nearestHigherPowerOfTwo(treeLength)/2;
+	// The tree height = log2 of the tree width plus 1
+	int treeHeight = log2_(treeWidth)+1;
+	log_debug("Tree width = %d and tree height = %d\n",treeWidth, treeHeight);
+	// Arrays for the different dimensions of lines
+	int spaceNumber[treeHeight];
+	int lineNumber[treeHeight];
+	int valuesNumber[treeHeight];
+	// Initialise the last line dimensions
+	spaceNumber[treeHeight-1] = 0;
+	lineNumber[treeHeight-1] = 0;
+	valuesNumber[treeHeight-1] = treeWidth;
+	// If there are more than 1 line
+	if(treeHeight > 1)
+	{
+		// Initialise the penultimate line dimensions
+		spaceNumber[treeHeight-2] = 2;
+		lineNumber[treeHeight-2] = 1;
+		valuesNumber[treeHeight-2] = treeWidth/2;
+		int i;
+		// Browse the lines from the antepenultimate
+		for(i = treeHeight-3;i >= 0; i--)
+		{
+			// Initialise lines dimensions
+			spaceNumber[i] = ((spaceNumber[i+1]+1)*2)-1;
+			lineNumber[i] = spaceNumber[i+1];
+			valuesNumber[i] = valuesNumber[i+1]/2;
+		}
+	}
+	int lineCount = 0;
+	int treeIndex = 0;
+	// Browse lines to print
+	while(lineCount != treeHeight)
+	{
+		int valuesCount = 0;
+		int valuesMiddleSpace = spaceNumber[lineCount]+1;
+		// The space between values must be at minimum 3
+		if(valuesMiddleSpace < 3)
+		{
+			valuesMiddleSpace = 3;
+		}
+		// Browse values of line
+		for(valuesCount = 0; treeIndex < treeLength && valuesCount < valuesNumber[lineCount]; valuesCount++)
+		{
+			int spaceCount = 0;
+			// Print left spaces
+			for(spaceCount = 0; spaceCount < spaceNumber[lineCount]; spaceCount++)
+			{
+				log_info(" ");
+			}
+			// Print value
+			log_info("%d",tree[treeIndex]);
+			// Print space between values
+			int interSpaceCount = 0;
+			for(interSpaceCount = 0; interSpaceCount < valuesMiddleSpace - (int)log10(tree[treeIndex]); interSpaceCount++)
+			{
+				log_info(" ");
+			}
+			// Increment value
+			treeIndex++;
+		}
+		int newLineCount = 0;
+		// Print new lines and links
+		while(newLineCount < lineNumber[lineCount])
+		{
+			log_info("\n");
+			// Browse values of line
+			for(valuesCount = 0; valuesCount < valuesNumber[lineCount]; valuesCount++)
+			{
+				int interSpaceCount = 0;
+				// Print left spaces
+				for(interSpaceCount = 0; interSpaceCount < spaceNumber[lineCount]-(newLineCount+1); interSpaceCount++)
+				{
+					log_info(" ");
+				}
+				// Print link
+				log_info("/");
+				// Print space between link
+				int middleSpace = ((spaceNumber[lineCount] - (interSpaceCount+1))*2)+1;
+				for(interSpaceCount = 0; interSpaceCount < middleSpace; interSpaceCount++)
+				{
+					log_info(" ");
+				}
+				// Print link
+				log_info("\\");
+				// Print space between values
+				for(interSpaceCount = 0; interSpaceCount < valuesMiddleSpace-(newLineCount+1); interSpaceCount++)
+				{
+					log_info(" ");
+				}
+			}
+			newLineCount++;
+		}
+		lineCount++;
+		log_info("\n");
+	}
+
+}
+
+int nearestHigherPowerOfTwo(int value)
+{
+	// Find the nearest higher power of two
+	value--;
+	value |= value >> 1;
+	value |= value >> 2;
+	value |= value >> 4;
+	value |= value >> 8;
+	value |= value >> 16;
+	value++;
+	return(value);
+}
+
+int log2_(int x)
+{
+	// Compute the log2
+	return log(x)/log(2);
 }

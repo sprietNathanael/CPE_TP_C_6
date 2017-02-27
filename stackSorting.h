@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "log.h"
+#include <math.h>
 
 #ifndef STACK_SORTING_H
 #define STACK_SORTING_H
@@ -129,5 +130,31 @@ int rightLeaf(int currentIndex);
  * @return     The index of the index's father leaf
  */
 int father(int currentIndex);
+
+/**
+ * @brief      Prints a tree
+ *
+ * @param      tree        The tree
+ * @param[in]  treeLength  The tree length
+ */
+void printTree(int* tree, int treeLength);
+
+/**
+ * @brief      Find the nearest higher power of two of a given value
+ *
+ * @param[in]  value  The value
+ *
+ * @return     The nearest higher power of two
+ */
+int nearestHigherPowerOfTwo(int value);
+
+/**
+ * @brief      Computes the log2 of a value
+ *
+ * @param[in]  x     The value to compute
+ *
+ * @return     log2 of the value
+ */
+int log2_(int x);
 
 #endif
